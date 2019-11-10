@@ -24,7 +24,12 @@ jobs:
       run: |
         npm i
         npm run build:prod
-    - name: GitHub Pages Deploy
-      uses: maxheld83/ghpages@v0.2.1
+    - name: Deploy
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v1
+      with:
+          target_branch: gh-pages
+          build_dir: dist/ng-demo
       env:
-        BUILD_DIR: dist/ng-demo
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PAT: ${{ secrets.GH_PAT }}
